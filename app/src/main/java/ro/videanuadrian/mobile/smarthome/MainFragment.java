@@ -44,10 +44,13 @@ public class MainFragment extends Fragment {
 
     private ArrayAdapter<String> mPITemperaturesAdapter;
 
+    private static final String LOG_TAG = MainFragment.class.getSimpleName();
+
     @Override
     public void onStart(){
         super.onStart();
         updateTemperatures();
+        Log.e(LOG_TAG,"onStart Main Fragment");
     }
 
     @Override
@@ -55,8 +58,32 @@ public class MainFragment extends Fragment {
         super.onCreate(savedInstanceState);
         // Add this line in order for this fragment to handle menu events.
        // setHasOptionsMenu(true);
+        Log.e(LOG_TAG,"onCreate Main Fragment");
     }
 
+    @Override
+    public void onStop(){
+        super.onStop();
+        Log.e(LOG_TAG,"onStop Main Fragment");
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        Log.e(LOG_TAG,"onResume Main Fragment");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.e(LOG_TAG, "onPause Main Fragment");
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        Log.e(LOG_TAG,"onDestroy Main Fragment");
+    }
   /*  @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.main, menu);
@@ -120,11 +147,9 @@ public class MainFragment extends Fragment {
 
 
         private Double convertToUnit(Double temperature,String unitType){
-
             if (unitType.equals(getString(R.string.pref_unit_value_imperial))){
                 temperature = (temperature*1.8)+32;
             }
-
             return temperature;
         }
 
@@ -236,8 +261,6 @@ public class MainFragment extends Fragment {
 
             } catch (IOException e) {
                 Log.e(LOG_TAG, "Error ", e);
-                // If the code didn't successfully get the weather data, there's no point in attemping
-                // to parse it.
                 return null;
             } finally {
                 if (urlConnection != null) {
